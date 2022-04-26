@@ -1,0 +1,221 @@
+﻿<!--Assets Atributions-->
+<!--<a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
+
+    
+    <Window x:Class="WeeklyPlanner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+        xmlns:local="clr-namespace:WeeklyPlanner"
+        xmlns:viewModels="clr-namespace:WeeklyPlanner.ViewModels"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:uc="clr-namespace:WeeklyPlanner.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1024" Width="1440" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <viewModels:MainWindowViewModel x:Key="vm"/>
+        <uc:DayEventUserControl x:Key="uc"/>
+    </Window.Resources>
+
+    <Grid x:Name="mainGrid" DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="WEEKLY PLANNER" FontSize="72"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="18"/>
+                        </Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="0 20 0 0"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border BorderBrush="Transparent" BorderThickness="0">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            
+                        </Style>
+                    </Grid.Resources>
+
+                    <Border Grid.Column="0" >
+                        <Label Content="Monday"/>                        
+                    </Border>
+                    <Border Grid.Column="1" >
+                        <Label Content="Tuesday"/>
+                    </Border>
+                    <Border Grid.Column="2">
+                        <Label Content="Wednesday"/>
+                    </Border>
+                    <Border Grid.Column="3">
+                        <Label Content="Thursday"/>
+                    </Border>
+                    <Border Grid.Column="4">
+                        <Label Content="Friday"/>
+                    </Border>
+                    <Border Grid.Column="5">
+                        <Label Content="Saturday"/>
+                    </Border>
+                    <Border Grid.Column="6">
+                        <Label Content="Sunday"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1" >
+                        <StackPanel>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding MondayEvents}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:DayEventUserControl/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            <Button Click="AddDayEvent_Click" Tag="Monday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding TuesdayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Tuesday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="2" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding WednesdayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Wednesday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="3" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding ThursdayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Thursday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="4" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding FridayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Friday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="5" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding SaturdayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Saturday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="6" Grid.Row="1">
+                        <StackPanel>
+                            <ListBox ItemsSource="{Binding SundayEvents}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:DayEventUserControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListBox>
+                            <Button Click="AddDayEvent_Click" Tag="Sunday">
+                                <Image Source="/Images/plus.png" Width="30"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4">
+                        <StackPanel >
+                            <Label Content="Notes:" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Border>
+                    <Border  Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="3">
+                        <StackPanel>
+                            <Label Content="Goals:" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

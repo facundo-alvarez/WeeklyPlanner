@@ -1,0 +1,28 @@
+﻿<Window x:Class="WeeklyPlanner.Modals.AddDayEventModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeeklyPlanner.Modals"
+        xmlns:main="clr-namespace:WeeklyPlanner.ViewModels"
+        mc:Ignorable="d"
+        Title="New Day Event" Height="450" Width="300" ResizeMode="NoResize">
+
+    <StackPanel Margin="10">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Day:"/>
+            <Label x:Name="day"/>
+        </StackPanel>
+        <Label Content="Time:"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox x:Name="meridiem"></ComboBox>
+            <ComboBox x:Name="hour"></ComboBox>
+            <ComboBox x:Name="minute"></ComboBox>
+        </StackPanel>
+        <Label Content="Title:"/>
+        <TextBox BorderBrush="Black" Text="{Binding Title}"/>
+        <Label Content="Description:"/>
+        <TextBox Height="200" BorderBrush="Black" Text="{Binding Description}"/>
+        <Button Content="Add" Margin="10" Padding="15 2" HorizontalAlignment="Right" Click="AddButton_Click" Command="{Binding AddDayEventCommand}" CommandParameter="{Binding ElementName=day,Path=Content}"/>
+    </StackPanel>
+</Window>
